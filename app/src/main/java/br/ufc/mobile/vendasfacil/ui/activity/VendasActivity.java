@@ -46,7 +46,7 @@ public class VendasActivity extends AppCompatActivity
         setContentView(R.layout.activity_venda);
         venda = new Venda();
         produtoDao = new ProdutoDaoImpl();
-        clienteDao = new ClienteDaoImpl();
+        clienteDao = new ClienteDaoImpl(null);
 
         setUpToolbar();
         setUpButtonClienteETotal();

@@ -33,7 +33,9 @@ public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPres
             if(fornecedor.getId() != null)
                 return fornecedorDao.update(fornecedor);
             else
-                return fornecedorDao.save(fornecedor);
+                fornecedorDao.save(fornecedor);
+
+            return true;
         }else{
             mView.showText("Informe as informações do fornecedor");
 

@@ -13,7 +13,7 @@ public class ClientesDetailsPresenterImpl implements ClientesDetailsPresenter {
 
     public ClientesDetailsPresenterImpl(View.ViewDetails mView){
         this.mView = mView;
-        clienteDao = new ClienteDaoImpl();
+        clienteDao = new ClienteDaoImpl(null);
     }
 
 
@@ -33,12 +33,13 @@ public class ClientesDetailsPresenterImpl implements ClientesDetailsPresenter {
             if(cliente.getId() != null)
                 return clienteDao.update(cliente);
             else
-                return clienteDao.save(cliente);
+                clienteDao.save(cliente);
+
+            return true;
         }else{
             mView.showText("Informe as informações do cliente");
 
             return false;
         }
-
     }
 }

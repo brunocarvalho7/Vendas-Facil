@@ -29,6 +29,11 @@ public class RecyclerClientesAdapter extends RecyclerView.Adapter<RecyclerClient
         this.dadosPesquisa = new ArrayList<>(dados);
     }
 
+    public void setDados(List<Cliente> dados){
+        this.dados = dados;
+        this.dadosPesquisa = new ArrayList<>(dados);
+    }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

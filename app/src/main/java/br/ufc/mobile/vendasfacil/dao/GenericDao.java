@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    boolean save(T obj);
-    T remove(Integer id);
+    void save(T obj);
+    boolean remove(T obj);
     List<T> getAll();
-    T getById(Integer id);
     boolean update(T obj);
+    String getNewId();
 
 }

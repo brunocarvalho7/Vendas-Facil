@@ -12,13 +12,13 @@ import br.ufc.mobile.vendasfacil.model.Produto;
 public class FornecedorDaoImpl implements FornecedorDao {
 
     @Override
-    public boolean save(Fornecedor obj) {
-        return FornecedorRepository.getInstance().save(obj);
+    public void save(Fornecedor obj) {
+        FornecedorRepository.getInstance().save(obj);
     }
 
     @Override
-    public Fornecedor remove(Integer id) {
-        return FornecedorRepository.getInstance().remove(id);
+    public boolean remove(Fornecedor obj) {
+        return true;
     }
 
     @Override
@@ -27,12 +27,12 @@ public class FornecedorDaoImpl implements FornecedorDao {
     }
 
     @Override
-    public Fornecedor getById(Integer id) {
-        return FornecedorRepository.getInstance().getById(id);
+    public boolean update(Fornecedor obj) {
+        return FornecedorRepository.getInstance().update(obj);
     }
 
     @Override
-    public boolean update(Fornecedor obj) {
-        return FornecedorRepository.getInstance().update(obj);
+    public String getNewId() {
+        return null;
     }
 }

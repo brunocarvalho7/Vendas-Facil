@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.model.Produto;
@@ -13,7 +14,7 @@ public class ClienteRepository {
 
     public static int GEN_ID = 0;
 
-    private Map<Integer, Cliente> clientes;
+    private Map<String, Cliente> clientes;
     private static ClienteRepository instance;
 
     private ClienteRepository(){
@@ -29,7 +30,7 @@ public class ClienteRepository {
     }
 
     public boolean save(Cliente obj) {
-        obj.setId(GEN_ID++);
+        obj.setId(UUID.randomUUID().toString());
         return clientes.put(obj.getId(), obj) != null ? true : false;
     }
 
@@ -50,8 +51,8 @@ public class ClienteRepository {
     }
 
     private void mock(){
-        save(new Cliente(1,"Cliente padrão", "Endereço A", "12345678"));
-        save(new Cliente(2,"Bruno Carvalho", "Endereço B", "95654785"));
-        save(new Cliente(3,"Maike Bezerra", "Endereço C", "40028922"));
+        save(new Cliente("1","Cliente padrão", "Endereço A", "12345678"));
+        save(new Cliente("2","Bruno Carvalho", "Endereço B", "95654785"));
+        save(new Cliente("3","Maike Bezerra", "Endereço C", "40028922"));
     }
 }

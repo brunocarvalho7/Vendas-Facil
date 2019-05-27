@@ -6,7 +6,7 @@ import java.util.List;
 import br.ufc.mobile.vendasfacil.dao.GenericDao;
 import br.ufc.mobile.vendasfacil.model.Categoria;
 
-public class CategoriaRepository implements GenericDao<Categoria> {
+public class CategoriaRepository {
 
     public List<Categoria> categoriaList;
     public static CategoriaRepository instance;
@@ -23,12 +23,10 @@ public class CategoriaRepository implements GenericDao<Categoria> {
         return instance;
     }
 
-    @Override
-    public boolean save(Categoria obj) {
-        return categoriaList.add(obj);
+    public void save(Categoria obj) {
+        categoriaList.add(obj);
     }
 
-    @Override
     public Categoria remove(Integer id) {
         for(int i=0; i<categoriaList.size(); i++){
             if(categoriaList.get(i).getId().equals(id))
@@ -37,12 +35,10 @@ public class CategoriaRepository implements GenericDao<Categoria> {
         return null;
     }
 
-    @Override
     public List<Categoria> getAll() {
         return categoriaList;
     }
 
-    @Override
     public Categoria getById(Integer id) {
         for(int i=0; i<categoriaList.size(); i++){
             if(categoriaList.get(i).getId().equals(id))
@@ -51,7 +47,6 @@ public class CategoriaRepository implements GenericDao<Categoria> {
         return null;
     }
 
-    @Override
     public boolean update(Categoria obj) {
         for(int i=0; i<categoriaList.size(); i++){
             if(categoriaList.get(i).getId().equals(obj.getId())) {
@@ -60,6 +55,10 @@ public class CategoriaRepository implements GenericDao<Categoria> {
             }
         }
         return false;
+    }
+
+    public String getNewId() {
+        return null;
     }
 
     private void mock() {

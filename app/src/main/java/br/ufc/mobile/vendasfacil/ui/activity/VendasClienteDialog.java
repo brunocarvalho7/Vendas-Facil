@@ -13,12 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.dao.ClienteDao;
+import br.ufc.mobile.vendasfacil.dao.DataStatus;
 import br.ufc.mobile.vendasfacil.dao.impl.ClienteDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 
-public class VendasClienteDialog extends AppCompatDialogFragment {
+public class VendasClienteDialog extends AppCompatDialogFragment implements DataStatus<Cliente> {
 
     private OnClienteSelectListener listener;
     private ClienteDao daoCliente;
@@ -28,7 +31,7 @@ public class VendasClienteDialog extends AppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        daoCliente = new ClienteDaoImpl();
+        daoCliente = new ClienteDaoImpl(this);
 
         view = getActivity().getLayoutInflater().inflate(R.layout.activity_venda_cliente, null);
         setUpListViewClientes();
@@ -82,6 +85,12 @@ public class VendasClienteDialog extends AppCompatDialogFragment {
                 listViewAdapter.getFilter().filter(s.toString());
             }
         });
+    }
+
+    @Override
+    public void DataIsLoaded(List<Cliente> dados) {
+        //TODO: TESTE
+        listViewAdapter.notifyDataSetChanged();
     }
 
     public interface OnClienteSelectListener{

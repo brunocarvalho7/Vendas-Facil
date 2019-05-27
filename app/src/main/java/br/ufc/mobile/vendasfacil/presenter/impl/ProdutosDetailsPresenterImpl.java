@@ -32,7 +32,9 @@ public class ProdutosDetailsPresenterImpl implements ProdutosDetailsPresenter {
             if(produto.getId() != null)
                 return produtoDao.update(produto);
             else
-                return produtoDao.save(produto);
+                produtoDao.save(produto);
+
+            return true;
         }else{
             mView.showText("Informe as informações do produto");
 

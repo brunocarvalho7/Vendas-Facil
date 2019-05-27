@@ -9,13 +9,13 @@ import br.ufc.mobile.vendasfacil.model.Produto;
 public class ProdutoDaoImpl implements ProdutoDao {
 
     @Override
-    public boolean save(Produto obj) {
-        return ProdutoRepository.getInstance().save(obj);
+    public void save(Produto obj) {
+        ProdutoRepository.getInstance().save(obj);
     }
 
     @Override
-    public Produto remove(Integer id) {
-        return ProdutoRepository.getInstance().remove(id);
+    public boolean remove(Produto obj) {
+        return true;
     }
 
     @Override
@@ -24,13 +24,13 @@ public class ProdutoDaoImpl implements ProdutoDao {
     }
 
     @Override
-    public Produto getById(Integer id) {
-        return ProdutoRepository.getInstance().getById(id);
+    public boolean update(Produto obj) {
+        return ProdutoRepository.getInstance().update(obj);
     }
 
     @Override
-    public boolean update(Produto obj) {
-        return ProdutoRepository.getInstance().update(obj);
+    public String getNewId() {
+        return null;
     }
 
     @Override

@@ -7,25 +7,31 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import java.util.List;
+
 import br.ufc.mobile.vendasfacil.R;
+import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.presenter.ClientesPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ClientesPresenterImpl;
+import br.ufc.mobile.vendasfacil.ui.View;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerClientesAdapter;
 
-public class ClientesActivity extends AppCompatActivity {
+public class ClientesActivity extends AppCompatActivity implements View.ViewMaster<Cliente> {
 
     private RecyclerView recyclerClientes;
-    private ClientesPresenter presenter = new ClientesPresenterImpl();
+    private ClientesPresenter presenter;
     private RecyclerClientesAdapter adapterClientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new ClientesPresenterImpl(this);
+
         setContentView(R.layout.activity_clientes);
         setUpToolbar();
         setUpListClientes();
@@ -88,8 +94,15 @@ public class ClientesActivity extends AppCompatActivity {
         recyclerClientes.setAdapter(adapterClientes);
     }
 
-    public void openClienteDetails(View view) {
+    public void openClienteDetails(android.view.View view) {
         Intent it = new Intent(this, ClientesDetailsActivity.class);
         startActivityForResult(it, 0);
+    }
+
+    @Override
+    public void updateAdapter(List<Cliente> dados) {
+        Log.i("TESTE", "Dataisloaded clienteactivity");
+        adapterClientes.setDados(dados);
+        adapterClientes.notifyDataSetChanged();
     }
 }

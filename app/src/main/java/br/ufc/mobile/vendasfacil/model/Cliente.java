@@ -1,12 +1,14 @@
 package br.ufc.mobile.vendasfacil.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
 
     public static String KEY = "CLIENTE";
 
-    private Integer id;
+    private String id;
     private String nome;
     private String endereco;
     private String telefone;
@@ -14,18 +16,18 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(Integer id, String nome, String endereco, String telefone) {
+    public Cliente(String id, String nome, String endereco, String telefone) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,6 +55,7 @@ public class Cliente implements Serializable {
         this.telefone = telefone;
     }
 
+    @Exclude
     public boolean isValid(){
         return nome.trim().length() > 0;
     }

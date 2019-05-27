@@ -9,13 +9,13 @@ import br.ufc.mobile.vendasfacil.repository.VendaRepository;
 public class VendaDaoImpl implements VendaDao {
 
     @Override
-    public boolean save(Venda obj) {
-        return VendaRepository.getInstance().save(obj);
+    public void save(Venda obj) {
+        VendaRepository.getInstance().save(obj);
     }
 
     @Override
-    public Venda remove(Integer id) {
-        return null;
+    public boolean remove(Venda venda) {
+        return true;
     }
 
     @Override
@@ -24,12 +24,12 @@ public class VendaDaoImpl implements VendaDao {
     }
 
     @Override
-    public Venda getById(Integer id) {
-        return null;
+    public boolean update(Venda obj) {
+        return false;
     }
 
     @Override
-    public boolean update(Venda obj) {
-        return false;
+    public String getNewId() {
+        return null;
     }
 }
