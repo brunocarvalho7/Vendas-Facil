@@ -23,13 +23,16 @@ import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerFornecedoresAdapter;
 public class FornecedoresActivity extends AppCompatActivity implements View.ViewMaster<Fornecedor>{
 
     private RecyclerView recyclerFornecedores;
-    private FornecedoresPresenter presenter = new FornecedoresPresenterImpl(this);
+    private FornecedoresPresenter presenter;
     private RecyclerFornecedoresAdapter adapterFornecedores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fornecedores);
+
+        presenter = new FornecedoresPresenterImpl(this);
+
         setUpToolbar();
         setUpListFornecedores();
     }

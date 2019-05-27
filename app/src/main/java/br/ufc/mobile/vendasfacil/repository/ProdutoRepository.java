@@ -10,9 +10,7 @@ import br.ufc.mobile.vendasfacil.model.enums.Unidade;
 
 public class ProdutoRepository  {
 
-    public static int GEN_ID = 0;
-
-    private Map<Integer, Produto> produtos;
+    private Map<String, Produto> produtos;
     private static ProdutoRepository instance;
 
     private ProdutoRepository(){
@@ -28,7 +26,6 @@ public class ProdutoRepository  {
     }
 
     public boolean save(Produto obj) {
-        obj.setId(GEN_ID++);
         return produtos.put(obj.getId(), obj) != null ? true : false;
     }
 
@@ -38,14 +35,6 @@ public class ProdutoRepository  {
 
     public List<Produto> getAll() {
         return new ArrayList<>(produtos.values());
-    }
-
-    public Produto getById(Integer id) {
-        for(int i=0; i<produtos.size(); i++){
-            if(produtos.get(i).getId().equals(id))
-                return produtos.get(i);
-        }
-        return null;
     }
 
     public boolean update(Produto obj) {
@@ -61,15 +50,15 @@ public class ProdutoRepository  {
     }
 
     private void mock(){
-        save(new Produto(1,"Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
-        save(new Produto(1,"Picanha", Unidade.KG, "12345", null, 2.0, 15.50,350.0));
-        save(new Produto(1,"Arroz Tio João", Unidade.UND, "12345", null, 2.0, 2.50,50.0));
-        save(new Produto(1,"Carne Moída Nvl.1", Unidade.KG, "12345", null, 2.0, 5.50,0.0));
-        save(new Produto(1,"Carne Moída Nvl.2", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
-        save(new Produto(1,"Feijão Branco", Unidade.UND, "12345", null, 2.0, 5.50,0.0));
-        save(new Produto(1,"Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
-        save(new Produto(1,"Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
-        save(new Produto(1,"Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
-        save(new Produto(1,"Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("1","Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("2","Picanha", Unidade.KG, "12345", null, 2.0, 15.50,350.0));
+        save(new Produto("3","Arroz Tio João", Unidade.UND, "12345", null, 2.0, 2.50,50.0));
+        save(new Produto("4","Carne Moída Nvl.1", Unidade.KG, "12345", null, 2.0, 5.50,0.0));
+        save(new Produto("5","Carne Moída Nvl.2", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("6","Feijão Branco", Unidade.UND, "12345", null, 2.0, 5.50,0.0));
+        save(new Produto("7","Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("8","Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("9","Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
+        save(new Produto("10","Carne Moída", Unidade.KG, "12345", null, 2.0, 5.50,50.0));
     }
 }

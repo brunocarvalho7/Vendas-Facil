@@ -34,7 +34,7 @@ public class VendasPagamentoActivity extends AppCompatActivity {
             this.venda = (Venda) getIntent().getExtras().getSerializable(Venda.KEY);
         }
 
-        vendaDao = new VendaDaoImpl();
+        vendaDao = new VendaDaoImpl(null);
 
         setUpEdtValor();
     }

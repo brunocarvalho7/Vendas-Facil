@@ -2,6 +2,8 @@ package br.ufc.mobile.vendasfacil.model;
 
 import android.support.annotation.Nullable;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 import br.ufc.mobile.vendasfacil.model.enums.Unidade;
@@ -10,7 +12,7 @@ public class Produto implements Serializable {
 
     public static String KEY = "PRODUTO";
 
-    private Integer id;
+    private String id;
     private String descricao;
     private Unidade unidade;
     private String codBarras;
@@ -19,7 +21,7 @@ public class Produto implements Serializable {
     private Double rsVenda;
     private Double estoque;
 
-    public Produto(Integer id, String descricao, Unidade unidade, String codBarras, Categoria categoria,
+    public Produto(String id, String descricao, Unidade unidade, String codBarras, Categoria categoria,
                    Double rsCompra, Double rsVenda, Double estoque) {
         this.id = id;
         this.descricao = descricao;
@@ -37,11 +39,11 @@ public class Produto implements Serializable {
         this.rsVenda = 0.0;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -77,6 +79,10 @@ public class Produto implements Serializable {
         this.categoria = categoria;
     }
 
+    /*public String getCategoriaKey(){
+        return String.valueOf(categoria.getId());
+    }*/
+
     public Double getRsCompra() {
         return rsCompra;
     }
@@ -101,6 +107,7 @@ public class Produto implements Serializable {
         this.estoque = estoque;
     }
 
+    @Exclude
     public String getEstoqueText(){
         if(getEstoque() > 0) {
             if (getUnidade().equals(Unidade.UND))
@@ -111,10 +118,12 @@ public class Produto implements Serializable {
         return "Sem estoque";
     }
 
+    @Exclude
     public String getRsVendaText(){
         return "R$ "+String.format("%.2f", getRsVenda());
     }
 
+    @Exclude
     public boolean isValid(){
         return descricao.trim().length() > 0 &&
                unidade != null &&

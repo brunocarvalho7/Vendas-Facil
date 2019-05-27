@@ -32,6 +32,11 @@ public class RecyclerProdutosVendaAdapter
         this.listener = listener;
     }
 
+    public void setDados(List<Produto> dados) {
+        this.dados = dados;
+        this.dadosPesquisa = new ArrayList<>(dados);
+    }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

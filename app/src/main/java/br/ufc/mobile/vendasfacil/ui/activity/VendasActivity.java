@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.List;
+
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.dao.ClienteDao;
+import br.ufc.mobile.vendasfacil.dao.DataStatus;
 import br.ufc.mobile.vendasfacil.dao.ProdutoDao;
 import br.ufc.mobile.vendasfacil.dao.impl.ClienteDaoImpl;
 import br.ufc.mobile.vendasfacil.dao.impl.ProdutoDaoImpl;
@@ -30,7 +33,7 @@ import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerItemVendaAdapter;
 public class VendasActivity extends AppCompatActivity
         implements VendasClienteDialog.OnClienteSelectListener,
         VendasProdutosDialog.OnProdutoSelectListener,
-        VendasAlterarQuantidadeDialog.OnSetQuantidadeListener{
+        VendasAlterarQuantidadeDialog.OnSetQuantidadeListener, DataStatus<Cliente> {
 
     private Toolbar toolbar;
     private Button buttonCliente, buttonTotal;
@@ -45,8 +48,8 @@ public class VendasActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_venda);
         venda = new Venda();
-        produtoDao = new ProdutoDaoImpl();
-        clienteDao = new ClienteDaoImpl(null);
+        produtoDao = new ProdutoDaoImpl(null);
+        clienteDao = new ClienteDaoImpl(this);
 
         setUpToolbar();
         setUpButtonClienteETotal();
@@ -70,7 +73,7 @@ public class VendasActivity extends AppCompatActivity
         });
 
         buttonCliente = findViewById(R.id.toolbar_venda_button_cliente);
-        onClienteSelected(clienteDao.getClientePadrao());
+
         buttonCliente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,8 +136,10 @@ public class VendasActivity extends AppCompatActivity
 
     @Override
     public void onClienteSelected(Cliente cliente) {
-        this.venda.setCliente(cliente);
-        buttonCliente.setText(cliente.getNome());
+        if(cliente != null){
+            this.venda.setCliente(cliente);
+            buttonCliente.setText(cliente.getNome());
+        }
     }
 
     @Override
@@ -163,5 +168,12 @@ public class VendasActivity extends AppCompatActivity
             itemVenda.setQtd(newQuantidade);
         }
         this.totalizarItens();
+    }
+
+    @Override
+    public void DataIsLoaded(List<Cliente> dados) {
+        if(venda.getCliente() == null) {
+            onClienteSelected(clienteDao.getClientePadrao());
+        }
     }
 }

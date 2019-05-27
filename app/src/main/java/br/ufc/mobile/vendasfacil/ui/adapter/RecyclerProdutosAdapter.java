@@ -29,6 +29,11 @@ public class RecyclerProdutosAdapter extends RecyclerView.Adapter<RecyclerProdut
         this.dadosPesquisa = new ArrayList<>(dados);
     }
 
+    public void setDados(List<Produto> dados) {
+        this.dados = dados;
+        this.dadosPesquisa = new ArrayList<>(dados);
+    }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

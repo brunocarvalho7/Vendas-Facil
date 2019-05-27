@@ -13,7 +13,7 @@ public class ProdutosDetailsPresenterImpl implements ProdutosDetailsPresenter {
 
     public ProdutosDetailsPresenterImpl(View.ViewDetails mView){
         this.mView = mView;
-        produtoDao = new ProdutoDaoImpl();
+        produtoDao = new ProdutoDaoImpl(null);
     }
 
     @Override

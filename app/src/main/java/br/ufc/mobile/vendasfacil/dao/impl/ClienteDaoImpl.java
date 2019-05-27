@@ -107,7 +107,10 @@ public class ClienteDaoImpl implements ClienteDao {
 
     @Override
     public Cliente getClientePadrao() {
-        //TODO: FAZER QUERY PRA PEGAR O PRIMEIRO ELEMENTO
-        return clientes.get(0);
+        if(clientes.size() > 0){
+            return clientes.get(0);
+        }
+
+        return null;
     }
 }

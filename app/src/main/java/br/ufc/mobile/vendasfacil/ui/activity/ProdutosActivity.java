@@ -9,24 +9,30 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import java.util.List;
+
 import br.ufc.mobile.vendasfacil.R;
+import br.ufc.mobile.vendasfacil.model.Produto;
+import br.ufc.mobile.vendasfacil.ui.View;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerProdutosAdapter;
 import br.ufc.mobile.vendasfacil.presenter.ProdutosPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.ProdutosPresenterImpl;
 
-public class ProdutosActivity extends AppCompatActivity {
+public class ProdutosActivity extends AppCompatActivity implements View.ViewMaster<Produto> {
 
     private RecyclerView recyclerProdutos;
     private RecyclerProdutosAdapter adapterProdutos;
-    private ProdutosPresenter presenter = new ProdutosPresenterImpl();
+    private ProdutosPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
+
+        presenter = new ProdutosPresenterImpl(this);
+
         setUpToolbar();
         setUpListProdutos();
     }
@@ -88,9 +94,14 @@ public class ProdutosActivity extends AppCompatActivity {
         recyclerProdutos.setAdapter(adapterProdutos);
     }
 
-    public void openProdutosDetails(View view) {
+    public void openProdutosDetails(android.view.View view) {
         Intent it = new Intent(this, ProdutosDetailsActivity.class);
         startActivityForResult(it, 0);
     }
 
+    @Override
+    public void updateAdapter(List<Produto> dados) {
+        adapterProdutos.setDados(dados);
+        adapterProdutos.notifyDataSetChanged();
+    }
 }

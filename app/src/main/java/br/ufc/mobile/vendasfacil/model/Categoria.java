@@ -1,11 +1,16 @@
 package br.ufc.mobile.vendasfacil.model;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 public class Categoria implements Serializable {
 
     private Integer id;
     private String descricao;
+
+    public Categoria(){
+    }
 
     public Categoria(Integer id, String descricao) {
         this.id = id;
@@ -28,6 +33,7 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
+    @Exclude
     public boolean isValid(){
         return descricao.trim().length() > 0;
     }

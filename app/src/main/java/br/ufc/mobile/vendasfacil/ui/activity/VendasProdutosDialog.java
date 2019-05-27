@@ -12,18 +12,19 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
+import java.util.List;
 
 import br.ufc.mobile.vendasfacil.R;
+import br.ufc.mobile.vendasfacil.dao.DataStatus;
 import br.ufc.mobile.vendasfacil.dao.ProdutoDao;
 import br.ufc.mobile.vendasfacil.dao.impl.ProdutoDaoImpl;
 import br.ufc.mobile.vendasfacil.model.Produto;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerProdutosVendaAdapter;
 
 public class VendasProdutosDialog extends AppCompatDialogFragment
-        implements RecyclerProdutosVendaAdapter.onRecyclerItemSelectedListener{
+        implements RecyclerProdutosVendaAdapter.onRecyclerItemSelectedListener,
+        DataStatus<Produto> {
 
     private OnProdutoSelectListener listener;
     private ProdutoDao daoProduto;
@@ -33,7 +34,7 @@ public class VendasProdutosDialog extends AppCompatDialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        daoProduto = new ProdutoDaoImpl();
+        daoProduto = new ProdutoDaoImpl(this);
 
         view = getActivity().getLayoutInflater().inflate(R.layout.activity_venda_produto, null);
         setUpListViewProdutos();
@@ -90,6 +91,12 @@ public class VendasProdutosDialog extends AppCompatDialogFragment
     public void onItemSelected(Produto produto) {
         listener.onProdutoSelected(produto);
         dismiss();
+    }
+
+    @Override
+    public void DataIsLoaded(List<Produto> dados) {
+        adapter.setDados(dados);
+        adapter.notifyDataSetChanged();
     }
 
     public interface OnProdutoSelectListener{

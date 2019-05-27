@@ -3,7 +3,10 @@ package br.ufc.mobile.vendasfacil.model;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,14 +20,14 @@ public class Venda implements Serializable {
     public static final String KEY = "Venda";
 
     private String id;
-    private Calendar data;
+    private String data;
     private Cliente cliente;
     private ArrayList<ItemVenda> itens;
     private double total;
     private FormaPagamento formaPagamento;
 
     public Venda() {
-        this.data = Calendar.getInstance();
+        this.data = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'").format(new Date());
         this.itens = new ArrayList<>();
     }
 
@@ -36,20 +39,25 @@ public class Venda implements Serializable {
         this.id = id;
     }
 
-    public Calendar getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Calendar data) {
+    public void setData(String data) {
         this.data = data;
     }
 
+    @Exclude
     public Cliente getCliente() {
         return cliente;
     }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public String getClienteKey(){
+        return this.cliente.getId();
     }
 
     public ArrayList<ItemVenda> getItens() {
@@ -96,6 +104,7 @@ public class Venda implements Serializable {
         this.calcularTotal();
     }
 
+    @Exclude
     public String getTotalText() {
         this.calcularTotal();
         return String.format("%.2f", this.total);
