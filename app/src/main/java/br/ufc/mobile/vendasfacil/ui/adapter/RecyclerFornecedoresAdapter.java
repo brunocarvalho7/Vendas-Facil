@@ -28,6 +28,11 @@ public class RecyclerFornecedoresAdapter extends RecyclerView.Adapter<RecyclerFo
         this.dadosPesquisa = new ArrayList<>(dados);
     }
 
+    public void setDados(List<Fornecedor> dados) {
+        this.dados = dados;
+        this.dadosPesquisa = new ArrayList<>(dados);
+    }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -1,7 +1,5 @@
 package br.ufc.mobile.vendasfacil.presenter.impl;
 
-import android.util.Log;
-
 import java.util.List;
 
 import br.ufc.mobile.vendasfacil.dao.ClienteDao;
@@ -28,7 +26,6 @@ public class ClientesPresenterImpl implements ClientesPresenter, DataStatus<Clie
 
     @Override
     public void DataIsLoaded(List<Cliente> dados) {
-        Log.i("TESTE", "Dataisloaded presenter");
         view.updateAdapter(dados);
     }
 }

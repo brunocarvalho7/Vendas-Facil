@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import br.ufc.mobile.vendasfacil.model.Fornecedor;
 
 public class FornecedorRepository {
 
-    public static int GEN_ID = 0;
-
-    private Map<Integer, Fornecedor> fornecedores;
+    private Map<String, Fornecedor> fornecedores;
     private static FornecedorRepository instance;
 
     private FornecedorRepository(){
@@ -27,7 +26,7 @@ public class FornecedorRepository {
     }
 
     public boolean save(Fornecedor obj) {
-        obj.setId(GEN_ID++);
+        obj.setId(UUID.randomUUID().toString());
         return fornecedores.put(obj.getId(), obj) != null ? true : false;
     }
 
@@ -48,8 +47,8 @@ public class FornecedorRepository {
     }
 
     private void mock(){
-       save(new Fornecedor(1,"Pinheiro", "12345678", "Fernando"));
-       save(new Fornecedor(1,"São Geraldo", "88877554", "Joaquim"));
-       save(new Fornecedor(1,"M Dias Branco", "44569874", "José"));
+       save(new Fornecedor("1","Pinheiro", "12345678", "Fernando"));
+       save(new Fornecedor("2","São Geraldo", "88877554", "Joaquim"));
+       save(new Fornecedor("3","M Dias Branco", "44569874", "José"));
     }
 }

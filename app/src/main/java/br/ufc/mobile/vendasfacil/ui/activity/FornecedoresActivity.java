@@ -9,18 +9,21 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import java.util.List;
+
 import br.ufc.mobile.vendasfacil.R;
+import br.ufc.mobile.vendasfacil.model.Fornecedor;
 import br.ufc.mobile.vendasfacil.presenter.FornecedoresPresenter;
 import br.ufc.mobile.vendasfacil.presenter.impl.FornecedoresPresenterImpl;
+import br.ufc.mobile.vendasfacil.ui.View;
 import br.ufc.mobile.vendasfacil.ui.adapter.RecyclerFornecedoresAdapter;
 
-public class FornecedoresActivity extends AppCompatActivity{
+public class FornecedoresActivity extends AppCompatActivity implements View.ViewMaster<Fornecedor>{
 
     private RecyclerView recyclerFornecedores;
-    private FornecedoresPresenter presenter = new FornecedoresPresenterImpl();
+    private FornecedoresPresenter presenter = new FornecedoresPresenterImpl(this);
     private RecyclerFornecedoresAdapter adapterFornecedores;
 
     @Override
@@ -88,9 +91,14 @@ public class FornecedoresActivity extends AppCompatActivity{
         recyclerFornecedores.setAdapter(adapterFornecedores);
     }
 
-    public void openFornecedorDetails(View view) {
+    public void openFornecedorDetails(android.view.View view) {
         Intent it = new Intent(this, FornecedoresDetailsActivity.class);
         startActivityForResult(it, 0);
     }
 
+    @Override
+    public void updateAdapter(List<Fornecedor> dados) {
+        adapterFornecedores.setDados(dados);
+        adapterFornecedores.notifyDataSetChanged();
+    }
 }

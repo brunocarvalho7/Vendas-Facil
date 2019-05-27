@@ -101,7 +101,6 @@ public class ClientesActivity extends AppCompatActivity implements View.ViewMast
 
     @Override
     public void updateAdapter(List<Cliente> dados) {
-        Log.i("TESTE", "Dataisloaded clienteactivity");
         adapterClientes.setDados(dados);
         adapterClientes.notifyDataSetChanged();
     }

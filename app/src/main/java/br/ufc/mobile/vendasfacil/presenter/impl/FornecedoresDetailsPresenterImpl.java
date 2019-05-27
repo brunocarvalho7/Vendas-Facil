@@ -13,7 +13,7 @@ public class FornecedoresDetailsPresenterImpl implements FornecedoresDetailsPres
 
     public FornecedoresDetailsPresenterImpl(View.ViewDetails mView){
         this.mView = mView;
-        fornecedorDao = new FornecedorDaoImpl();
+        fornecedorDao = new FornecedorDaoImpl(null);
     }
 
 

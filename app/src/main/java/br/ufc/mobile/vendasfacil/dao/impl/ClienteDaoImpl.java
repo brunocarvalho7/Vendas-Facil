@@ -42,7 +42,6 @@ public class ClienteDaoImpl implements ClienteDao {
                 clientes.clear();
                 for(DataSnapshot cliente: dataSnapshot.getChildren()){
                     Cliente c = cliente.getValue(Cliente.class);
-                    Log.i("TESTE", c.toString());
                     clientes.add(c);
                 }
 
