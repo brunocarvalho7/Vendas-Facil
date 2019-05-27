@@ -24,4 +24,6 @@
     <string name="produtos_details_RsVenda">R$ Venda</string>
     <string name="menu_confirmar">Confirmar</string>
     <string name="produtos_details_categoria">Categoria</string>
+    <string name="title_activity_vendas">Nova venda</string>
+    <string name="activity_venda_sem_itens">Sem itens = R$ 0,00</string>
 </resources>

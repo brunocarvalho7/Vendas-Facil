@@ -7,22 +7,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.VendasActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_venda" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_clientes_recycler_clientes"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_clientes_fab_add_cliente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:onClick="scanBarCode"
-        app:srcCompat="@drawable/ic_add" />
+        <Button
+            android:id="@+id/activity_venda_button_produto"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_toStartOf="@id/activity_venda_button_scanner"
+            android:drawableLeft="@drawable/ic_search"
+            android:onClick="searchProduto" />
+
+        <Button
+            android:id="@+id/activity_venda_button_scanner"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/activity_venda_button_produto"
+            android:layout_alignParentEnd="true"
+            android:drawableLeft="@drawable/ic_bar_code"
+            android:onClick="scanBarCode" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_venda_recycler_itens"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/activity_venda_button_total"
+            android:layout_below="@id/activity_venda_button_produto"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:id="@+id/activity_venda_button_total"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+
+            android:layout_alignParentBottom="true"
+            android:text="@string/activity_venda_sem_itens" />
+
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

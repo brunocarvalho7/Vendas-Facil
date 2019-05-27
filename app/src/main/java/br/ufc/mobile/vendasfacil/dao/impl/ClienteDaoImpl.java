@@ -34,4 +34,9 @@ public class ClienteDaoImpl implements ClienteDao {
     public boolean update(Cliente obj) {
         return ClienteRepository.getInstance().update(obj);
     }
+
+    @Override
+    public Cliente getClientePadrao() {
+        return ClienteRepository.getInstance().getById(0);
+    }
 }

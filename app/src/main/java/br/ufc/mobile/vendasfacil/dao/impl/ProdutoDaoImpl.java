@@ -32,4 +32,9 @@ public class ProdutoDaoImpl implements ProdutoDao {
     public boolean update(Produto obj) {
         return ProdutoRepository.getInstance().update(obj);
     }
+
+    @Override
+    public Produto getByBarCode(String barCode) {
+        return ProdutoRepository.getInstance().getByBarCode(barCode);
+    }
 }

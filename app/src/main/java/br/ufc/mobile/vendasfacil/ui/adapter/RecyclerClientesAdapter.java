@@ -18,7 +18,8 @@ import java.util.List;
 import br.ufc.mobile.vendasfacil.model.Cliente;
 import br.ufc.mobile.vendasfacil.ui.activity.ClientesDetailsActivity;
 
-public class RecyclerClientesAdapter extends RecyclerView.Adapter<RecyclerClientesAdapter.CustomViewHolder> implements Filterable {
+public class RecyclerClientesAdapter extends RecyclerView.Adapter<RecyclerClientesAdapter.CustomViewHolder>
+        implements Filterable {
 
     private List<Cliente> dados;
     private List<Cliente> dadosPesquisa;

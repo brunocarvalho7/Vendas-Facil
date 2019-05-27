@@ -1,6 +1,8 @@
 package br.ufc.mobile.vendasfacil.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import br.ufc.mobile.vendasfacil.R;
@@ -104,6 +108,27 @@ public class ProdutosDetailsActivity extends AppCompatActivity implements View.V
     @Override
     public void showText(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    public void scanBarCode(android.view.View
+                                    view){
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.EAN_13);
+        integrator.setPrompt("Novo produto");
+        integrator.setCameraId(0);
+        integrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null){
+            if(result.getContents() != null){
+                ((TextView)findViewById(R.id.txtProdutoCodBarras)).setText(result.getContents());
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void setUpToolbar() {

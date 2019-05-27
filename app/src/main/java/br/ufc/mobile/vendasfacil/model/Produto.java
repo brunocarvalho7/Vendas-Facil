@@ -1,5 +1,7 @@
 package br.ufc.mobile.vendasfacil.model;
 
+import android.support.annotation.Nullable;
+
 import java.io.Serializable;
 
 import br.ufc.mobile.vendasfacil.model.enums.Unidade;
@@ -131,5 +133,10 @@ public class Produto implements Serializable {
                 ", rsVenda=" + rsVenda +
                 ", estoque=" + estoque +
                 '}';
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.getId().equals(((Produto)obj).getId());
     }
 }
