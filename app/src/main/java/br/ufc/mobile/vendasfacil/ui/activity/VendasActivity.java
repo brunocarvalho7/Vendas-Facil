@@ -66,9 +66,15 @@ public class VendasActivity extends AppCompatActivity
         buttonTotal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(VendasActivity.this, VendasPagamentoActivity.class);
-                it.putExtra(Venda.KEY, venda);
-                startActivity(it);
+                if(venda.getItens().size() == 0) {
+                    Toast.makeText(VendasActivity.this,
+                            "Insira itens na venda para continuar",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent it = new Intent(VendasActivity.this, VendasPagamentoActivity.class);
+                    it.putExtra(Venda.KEY, venda);
+                    startActivity(it);
+                }
             }
         });
 

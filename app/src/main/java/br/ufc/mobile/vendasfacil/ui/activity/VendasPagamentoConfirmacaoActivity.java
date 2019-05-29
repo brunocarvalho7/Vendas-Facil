@@ -34,6 +34,15 @@ public class VendasPagamentoConfirmacaoActivity extends AppCompatActivity {
         Log.i("Vendas", VendaRepository.getInstance().getAll().toString());
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent it = new Intent(this, PrincipalActivity.class);
+        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        it.putExtra("inicial", false);
+        startActivity(it);
+        finish();
+    }
+
     public void novaVenda(View view){
         Intent it = new Intent(this, VendasActivity.class);
         it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

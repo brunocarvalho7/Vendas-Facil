@@ -8,10 +8,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.ufc.mobile.vendasfacil.R;
+import br.ufc.mobile.vendasfacil.task.Reports;
+import br.ufc.mobile.vendasfacil.task.VendasDiarias;
+import br.ufc.mobile.vendasfacil.task.VendasMensal;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -19,14 +26,27 @@ public class PrincipalActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationPrincipal;
+    private TextView txtValorDia, txtQtdDia, txtMes, txtValorMes, txtQtdMes;
+    private VendasDiarias vendasDiarias;
+    private VendasMensal vendasMensal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        if(getIntent().getExtras() != null &&
+                getIntent().getExtras().get("inicial") != null){
+            Log.i("Relatório", "teste");
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        }
+
+
         setUpToolbar();
         setUpDrawerMenu();
+        setUpTextsViews();
+
+        doReports();
     }
 
     @Override
@@ -81,6 +101,36 @@ public class PrincipalActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
     }
 
+    private void setUpTextsViews() {
+        txtValorDia = findViewById(R.id.activity_principal_dia_valor);
+        txtQtdDia   = findViewById(R.id.activity_principal_dia_qtd);
+        txtMes      = findViewById(R.id.activity_principal_mes_descricao);
+        txtValorMes = findViewById(R.id.activity_principal_mes_valor);
+        txtQtdMes   = findViewById(R.id.activity_principal_mes_qtd);
+    }
+
+    private void setUpReports() {
+        vendasDiarias = new VendasDiarias(this);
+        vendasDiarias.setVendaCalculoListener(new Reports.VendaCalculoListener() {
+            @Override
+            public void onPostCalculo(Reports report) {
+                txtQtdDia.setText(report.getQtdText());
+                txtValorDia.setText(report.getTotalText());
+            }
+        });
+
+        vendasMensal = new VendasMensal(this);
+        vendasMensal.setVendaCalculoListener(new Reports.VendaCalculoListener() {
+            @Override
+            public void onPostCalculo(Reports report) {
+                txtQtdMes.setText(report.getQtdText());
+                txtValorMes.setText(report.getTotalText());
+                txtMes.setText(report.getLabel());
+            }
+        });
+    }
+
+
     private void openProdutosActivity() {
         startActivity(new Intent(this, ProdutosActivity.class));
     }
@@ -95,5 +145,11 @@ public class PrincipalActivity extends AppCompatActivity
 
     public void openVendasActivity(View view){
         startActivity(new Intent(this, VendasActivity.class));
+    }
+
+    public void doReports(){
+        setUpReports();
+        vendasDiarias.execute();
+        vendasMensal.execute();
     }
 }

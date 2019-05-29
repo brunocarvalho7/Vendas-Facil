@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Vendas Fácil</string>
     <string name="title_activity_clientes_details">ClientesDetails</string>
-    <string name="title_activity_principal">PrincipalActivity</string>
+    <string name="title_activity_principal">Vendas fácil</string>
     <string name="navigation_drawer_open">Abrir menu lateral</string>
     <string name="navigation_drawer_close">Fechar menu lateral</string>
     <string name="action_settings">Settings</string>
