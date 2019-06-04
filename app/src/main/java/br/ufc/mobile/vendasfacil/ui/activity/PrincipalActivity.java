@@ -2,6 +2,7 @@ package br.ufc.mobile.vendasfacil.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,13 +13,19 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import br.ufc.mobile.vendasfacil.R;
 import br.ufc.mobile.vendasfacil.task.Reports;
 import br.ufc.mobile.vendasfacil.task.VendasDiarias;
 import br.ufc.mobile.vendasfacil.task.VendasMensal;
+import br.ufc.mobile.vendasfacil.utils.VendasFacilAuthenticationFirebase;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +36,7 @@ public class PrincipalActivity extends AppCompatActivity
     private TextView txtValorDia, txtQtdDia, txtMes, txtValorMes, txtQtdMes;
     private VendasDiarias vendasDiarias;
     private VendasMensal vendasMensal;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +46,18 @@ public class PrincipalActivity extends AppCompatActivity
         if(getIntent().getExtras() != null &&
                 getIntent().getExtras().get("inicial") != null){
             Log.i("Relatório", "teste");
+
+            //TODO: Criar tela de splash e colocar isso lá
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         }
 
+        mAuth = FirebaseAuth.getInstance();
 
         setUpToolbar();
         setUpDrawerMenu();
         setUpTextsViews();
+        setUpUser();
+        setUpLogout();
 
         doReports();
     }
@@ -130,6 +143,33 @@ public class PrincipalActivity extends AppCompatActivity
         });
     }
 
+    private void setUpLogout() {
+        TextView txtLogout =  navigationPrincipal.getHeaderView(0)
+                .findViewById(R.id.menu_lateral_logout);
+        txtLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+    }
+
+    private void setUpUser() {
+        FirebaseUser currentUser = VendasFacilAuthenticationFirebase.getInstance().getUserAuthenticated();
+
+        if(currentUser != null){
+            TextView username =  navigationPrincipal.getHeaderView(0)
+                    .findViewById(R.id.menu_lateral_username);
+            username.setText(currentUser.getDisplayName());
+        }
+    }
+
+    private void signOut() {
+        Intent it = new Intent(this, LoginActivity.class);
+        it.putExtra("logout", true);
+        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(it);
+    }
 
     private void openProdutosActivity() {
         startActivity(new Intent(this, ProdutosActivity.class));
